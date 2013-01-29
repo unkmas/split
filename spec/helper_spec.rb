@@ -899,15 +899,29 @@ describe Split::Helper do
         @alternative_name = ab_test(@experiment, *@alternatives)
       end
 
-      it "should increment the counter for the specified-goal completed alternative" do
+      it "should increment the counter for the experiment with the specified goal" do
         lambda {
           lambda {
-            finished({"link_color" => ["purchase"]})
+            finished("purchase")
           }.should_not change {
             Split::Alternative.new(@alternative_name, @experiment_name).completed_count(@goal2)
           }
         }.should change {
           Split::Alternative.new(@alternative_name, @experiment_name).completed_count(@goal1)
+        }.by(1)
+      end
+
+      it "should increment counters for multiple experiments using the same goal" do
+        @experiment2 = {'bigger_logo' => ["purchase"]}
+        @experiment2_name, _ = normalize_experiment(@experiment2)
+        lambda {
+          lambda {
+            finished("purchase")
+          }.should change {
+            Split::Alternative.new(@alternative_name, @experiment_name).completed_count
+          }.by(1)
+        }.should change {
+          Split::Alternative.new(@alternative_name, @experiment2_name).completed_count()
         }.by(1)
       end
     end
