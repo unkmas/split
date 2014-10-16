@@ -37,7 +37,6 @@ describe Split::Trial do
       expect(trial.alternative.name).to eq('basket')
     end
 
-
     it "should choose from the available alternatives" do
       trial = Split::Trial.new(:experiment => experiment = double('experiment'))
       alternative = double('alternative', :kind_of? => Split::Alternative)

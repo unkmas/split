@@ -188,7 +188,6 @@ describe Split::Experiment do
     end
   end
 
-
   describe 'winner' do
     it "should have no winner initially" do
       expect(experiment.winner).to be_nil
