@@ -31,7 +31,7 @@ describe Split::Experiment do
     end
 
     it "should have alternatives with correct names" do
-      expect(experiment.alternatives.collect{|a| a.name}).to eq(['Basket', 'Cart'])
+      expect(experiment.alternatives.map{|a| a.name}).to eq(['Basket', 'Cart'])
     end
 
     it "should be resettable by default" do
@@ -162,7 +162,7 @@ describe Split::Experiment do
 
       e = Split::Experiment.find('foobar')
       expect(e).to eq(experiment)
-      expect(e.alternatives.collect{|a| a.name}).to eq(['tra', 'la'])
+      expect(e.alternatives.map{|a| a.name}).to eq(['tra', 'la'])
     end
   end
 

@@ -165,7 +165,7 @@ describe Split::Helper do
       experiment = Split::Experiment.find('link_color')
       expect(experiment.alternatives.map(&:name)).to eq(['blue', 'red'])
       # TODO: persist alternative weights
-      # expect(experiment.alternatives.collect{|a| a.weight}).to eq([0.01, 0.2])
+      # expect(experiment.alternatives.map{|a| a.weight}).to eq([0.01, 0.2])
     end
 
     it "should only let a user participate in one experiment at a time" do
@@ -797,7 +797,7 @@ describe Split::Helper do
       }
       ab_test :my_experiment
       experiment = Split::Experiment.new(:my_experiment)
-      expect(experiment.alternatives.collect{|a| [a.name, a.weight]}).to eq([['control_opt', 0.67], ['second_opt', 0.1], ['third_opt', 0.23]])
+      expect(experiment.alternatives.map{|a| [a.name, a.weight]}).to eq([['control_opt', 0.67], ['second_opt', 0.1], ['third_opt', 0.23]])
     end
 
     it "accepts probability on some alternatives" do
@@ -811,7 +811,7 @@ describe Split::Helper do
       }
       ab_test :my_experiment
       experiment = Split::Experiment.new(:my_experiment)
-      names_and_weights = experiment.alternatives.collect{|a| [a.name, a.weight]}
+      names_and_weights = experiment.alternatives.map{|a| [a.name, a.weight]}
       expect(names_and_weights).to eq([['control_opt', 0.34], ['second_opt', 0.215], ['third_opt', 0.23], ['fourth_opt', 0.215]])
       expect(names_and_weights.inject(0){|sum, nw| sum + nw[1]}).to eq(1.0)
     end
@@ -826,7 +826,7 @@ describe Split::Helper do
       }
       ab_test :my_experiment
       experiment = Split::Experiment.new(:my_experiment)
-      names_and_weights = experiment.alternatives.collect{|a| [a.name, a.weight]}
+      names_and_weights = experiment.alternatives.map{|a| [a.name, a.weight]}
       expect(names_and_weights).to eq([['control_opt', 0.18], ['second_opt', 0.18], ['third_opt', 0.64]])
       expect(names_and_weights.inject(0){|sum, nw| sum + nw[1]}).to eq(1.0)
     end

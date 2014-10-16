@@ -16,7 +16,7 @@ module Split
       if metric
         experiment_names = metric.split(',')
 
-        experiments = experiment_names.collect do |experiment_name|
+        experiments = experiment_names.map do |experiment_name|
           Split::Experiment.find(experiment_name)
         end
 
@@ -52,10 +52,10 @@ module Split
     end
 
     def self.all
-      redis_metrics = Split.redis.hgetall(:metrics).collect do |key, value|
+      redis_metrics = Split.redis.hgetall(:metrics).map do |key, value|
         find(key)
       end
-      configuration_metrics = Split.configuration.metrics.collect do |key, value|
+      configuration_metrics = Split.configuration.metrics.map do |key, value|
         new(name: key, experiments: value)
       end
       redis_metrics | configuration_metrics
