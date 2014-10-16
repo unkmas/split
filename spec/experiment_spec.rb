@@ -4,7 +4,7 @@ require 'split/algorithms'
 require 'time'
 
 describe Split::Experiment do
-  def new_experiment(goals=[])
+  def new_experiment(goals = [])
     Split::Experiment.new('link_color', :alternatives => ['blue', 'red', 'green'], :goals => goals)
   end
 

@@ -319,7 +319,7 @@ describe Split::Helper do
     before { Split.configuration.experiments = {} }
     before { expect(Split::Alternative).to receive(:new).at_least(1).times.and_call_original }
 
-    def should_finish_experiment(experiment_name, should_finish=true)
+    def should_finish_experiment(experiment_name, should_finish = true)
       alts = Split.configuration.experiments[experiment_name][:alternatives]
       experiment = Split::Experiment.find_or_create(experiment_name, *alts)
       alt_name = ab_user[experiment.key] = alts.first
