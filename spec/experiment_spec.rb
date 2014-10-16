@@ -44,7 +44,7 @@ describe Split::Experiment do
     end
 
     it "should save the start time to redis" do
-      experiment_start_time = Time.at(1372167761)
+      experiment_start_time = Time.parse('2013-06-25 14:00:00')
       expect(Time).to receive(:now).and_return(experiment_start_time)
       experiment.save
 
