@@ -50,7 +50,7 @@ module Split
     end
 
     def reset!(experiment)
-      ab_user.delete(experiment.key)
+      ab_user.hdel(experiment.key, experiment.finished_key)
     end
 
     def finish_experiment(experiment, options = {:reset => true})
